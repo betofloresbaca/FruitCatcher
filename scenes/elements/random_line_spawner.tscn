@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch76vu40cu3dk"]
+
+[ext_resource type="Script" path="res://scenes/elements/random_line_spawner.gd" id="1_gl77l"]
+
+[node name="LineSpawner" type="Marker2D"]
+script = ExtResource("1_gl77l")
+
+[node name="Internal" type="Node2D" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="Internal"]
+
+[node name="SpawnLine" type="Line2D" parent="Internal"]
+points = PackedVector2Array(2.08165e-12, 2.08165e-12, 200, 2.08165e-12)
+width = 5.0
+
+[node name="SpawnedObjects" type="Node2D" parent="Internal"]
+
+[connection signal="timeout" from="Internal/SpawnTimer" to="." method="_on_falling_timer_timeout"]

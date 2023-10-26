@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://bc1fjb6o5flss"]
+
+[ext_resource type="PackedScene" uid="uid://6w28415q075u" path="res://scenes/elements/player.tscn" id="1_l8jl6"]
+[ext_resource type="PackedScene" uid="uid://fmpki3l5f6g7" path="res://scenes/elements/ground.tscn" id="2_5ixk6"]
+[ext_resource type="PackedScene" uid="uid://ch76vu40cu3dk" path="res://scenes/elements/random_line_spawner.tscn" id="3_g4hgf"]
+[ext_resource type="PackedScene" uid="uid://bb1p12mavjmq6" path="res://scenes/elements/falling_object.tscn" id="3_xsaco"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_l8jl6")]
+position = Vector2(581, 565)
+
+[node name="RigidBody2D" parent="." instance=ExtResource("2_5ixk6")]
+position = Vector2(580, 616)
+
+[node name="FallingSpawner" parent="." instance=ExtResource("3_g4hgf")]
+position = Vector2(2.08165e-12, -50)
+scale = Vector2(5.75, 1)
+spawn_container_path = NodePath("../FallingObjects")
+
+[node name="Pineaple" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
+visible = false
+color = Color(0.615686, 0.556863, 0.247059, 1)
+
+[node name="Orange" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
+visible = false
+color = Color(0.839216, 0.411765, 0.266667, 1)
+
+[node name="Pickle" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
+visible = false
+color = Color(0.196078, 0.47451, 0.219608, 1)
+
+[node name="Bomb" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
+visible = false
+
+[node name="FallingObjects" type="Node2D" parent="."]
