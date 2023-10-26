@@ -1,15 +1,16 @@
 extends CharacterBody2D
 
-const speed = 400
-
-
-func _ready():
-	pass  # Replace with function body.
+const acceleration = 2000
+const max_speed = 400
+const drag = 1500
 
 
 func _process(delta):
-	var movement = get_input_vector()
-	velocity = movement * speed
+	var input_vector = get_input_vector()
+	velocity += input_vector * acceleration * delta
+	velocity.x = clamp(velocity.x, -max_speed, max_speed)
+	if input_vector == Vector2.ZERO and abs(velocity.x) > 0:
+		velocity.x -= sign(velocity.x) * clamp(drag * delta, 0, abs(velocity.x))
 	move_and_slide()
 
 
