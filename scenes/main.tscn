@@ -1,36 +1,71 @@
-[gd_scene load_steps=5 format=3 uid="uid://bc1fjb6o5flss"]
+[gd_scene load_steps=6 format=3 uid="uid://bc1fjb6o5flss"]
 
 [ext_resource type="PackedScene" uid="uid://6w28415q075u" path="res://scenes/elements/player.tscn" id="1_l8jl6"]
-[ext_resource type="PackedScene" uid="uid://fmpki3l5f6g7" path="res://scenes/elements/ground.tscn" id="2_5ixk6"]
 [ext_resource type="PackedScene" uid="uid://ch76vu40cu3dk" path="res://scenes/elements/random_line_spawner.tscn" id="3_g4hgf"]
 [ext_resource type="PackedScene" uid="uid://bb1p12mavjmq6" path="res://scenes/elements/falling_object.tscn" id="3_xsaco"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y6agh"]
+size = Vector2(100, 663)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2m8ea"]
+size = Vector2(100, 100)
 
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_l8jl6")]
 position = Vector2(581, 565)
 
-[node name="RigidBody2D" parent="." instance=ExtResource("2_5ixk6")]
-position = Vector2(580, 616)
-
 [node name="FallingSpawner" parent="." instance=ExtResource("3_g4hgf")]
-position = Vector2(2.08165e-12, -50)
-scale = Vector2(5.75, 1)
+position = Vector2(26, -47)
+scale = Vector2(5.5, 1)
 spawn_container_path = NodePath("../FallingObjects")
 
 [node name="Pineaple" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
 visible = false
-color = Color(0.615686, 0.556863, 0.247059, 1)
 
 [node name="Orange" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
 visible = false
-color = Color(0.839216, 0.411765, 0.266667, 1)
 
 [node name="Pickle" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
 visible = false
-color = Color(0.196078, 0.47451, 0.219608, 1)
 
 [node name="Bomb" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
 visible = false
 
 [node name="FallingObjects" type="Node2D" parent="."]
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2(-70, 316)
+shape = SubResource("RectangleShape2D_y6agh")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+position = Vector2(1223, 317)
+shape = SubResource("RectangleShape2D_y6agh")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(572, 616)
+scale = Vector2(15, 1)
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0941176, 0.231373, 0.247059, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_2m8ea")

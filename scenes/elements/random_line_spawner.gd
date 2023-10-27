@@ -1,5 +1,7 @@
 extends Node2D
 
+signal object_spawned
+
 @export_range(0.1, 100, 0.1) var objects_per_seccond: float = 1
 @export var spawn_container_path: NodePath
 
@@ -35,6 +37,7 @@ func _on_falling_timer_timeout():
 	spawn_object.set_position(spawn_position)
 	spawn_object.process_mode = Node.PROCESS_MODE_INHERIT
 	spawn_object.show()
+	object_spawned.emit()
 
 
 func __get_random_spawn_position():
