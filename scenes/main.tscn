@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bc1fjb6o5flss"]
+[gd_scene load_steps=9 format=3 uid="uid://bc1fjb6o5flss"]
 
+[ext_resource type="PackedScene" uid="uid://bursr7fhl3r3g" path="res://scenes/elements/background.tscn" id="1_8xii0"]
 [ext_resource type="PackedScene" uid="uid://6w28415q075u" path="res://scenes/elements/player.tscn" id="1_l8jl6"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_q2hk7"]
 [ext_resource type="PackedScene" uid="uid://ch76vu40cu3dk" path="res://scenes/elements/random_line_spawner.tscn" id="3_g4hgf"]
-[ext_resource type="PackedScene" uid="uid://bb1p12mavjmq6" path="res://scenes/elements/falling_object.tscn" id="3_xsaco"]
+[ext_resource type="PackedScene" uid="uid://bb1p12mavjmq6" path="res://scenes/elements/fruit.tscn" id="3_xsaco"]
+[ext_resource type="PackedScene" uid="uid://brrw1adjklf2q" path="res://scenes/gui/ready.tscn" id="6_5mtc6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y6agh"]
 size = Vector2(100, 663)
@@ -11,26 +14,21 @@ size = Vector2(100, 663)
 size = Vector2(100, 100)
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_q2hk7")
+ready_scene = ExtResource("6_5mtc6")
+
+[node name="Background" parent="." instance=ExtResource("1_8xii0")]
+position = Vector2(530, 269)
 
 [node name="Player" parent="." instance=ExtResource("1_l8jl6")]
-position = Vector2(581, 565)
+position = Vector2(580, 620)
 
 [node name="FallingSpawner" parent="." instance=ExtResource("3_g4hgf")]
 position = Vector2(26, -47)
 scale = Vector2(5.5, 1)
 spawn_container_path = NodePath("../FallingObjects")
 
-[node name="Pineaple" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
-visible = false
-
-[node name="Orange" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
-visible = false
-
-[node name="Pickle" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
-visible = false
-
-[node name="Bomb" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
-visible = false
+[node name="Fruit" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
 
 [node name="FallingObjects" type="Node2D" parent="."]
 
@@ -48,24 +46,10 @@ metadata/_edit_lock_ = true
 position = Vector2(1223, 317)
 shape = SubResource("RectangleShape2D_y6agh")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(572, 616)
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(572, 670)
 scale = Vector2(15, 1)
 metadata/_edit_lock_ = true
 
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 50.0
-offset_bottom = 50.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0941176, 0.231373, 0.247059, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 shape = SubResource("RectangleShape2D_2m8ea")

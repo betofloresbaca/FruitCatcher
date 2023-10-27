@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bursr7fhl3r3g"]
+
+[ext_resource type="Texture2D" uid="uid://do0gui575mcn0" path="res://assets/background_mountains.jpg" id="2_f4su3"]
+
+[node name="Background" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.870588, 0.984314, 1, 0.768627)
+position = Vector2(0, -3)
+texture = ExtResource("2_f4su3")

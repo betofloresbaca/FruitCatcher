@@ -24,5 +24,9 @@ func get_input_vector():
 	return movement
 
 
+func point_up():
+	print("UP")
+
+
 func kill():
-	pass
+	print("Death")
