@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bc1fjb6o5flss"]
+[gd_scene load_steps=11 format=3 uid="uid://bc1fjb6o5flss"]
 
 [ext_resource type="PackedScene" uid="uid://bursr7fhl3r3g" path="res://scenes/elements/background.tscn" id="1_8xii0"]
 [ext_resource type="PackedScene" uid="uid://6w28415q075u" path="res://scenes/elements/player.tscn" id="1_l8jl6"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_q2hk7"]
-[ext_resource type="PackedScene" uid="uid://ch76vu40cu3dk" path="res://scenes/elements/random_line_spawner.tscn" id="3_g4hgf"]
+[ext_resource type="PackedScene" uid="uid://ch76vu40cu3dk" path="res://scenes/elements/line_spawner.tscn" id="3_g4hgf"]
 [ext_resource type="PackedScene" uid="uid://bb1p12mavjmq6" path="res://scenes/elements/fruit.tscn" id="3_xsaco"]
 [ext_resource type="PackedScene" uid="uid://brrw1adjklf2q" path="res://scenes/gui/ready.tscn" id="6_5mtc6"]
+[ext_resource type="PackedScene" uid="uid://ryf1yrruo6kn" path="res://scenes/gui/hud.tscn" id="7_ubsnn"]
+[ext_resource type="PackedScene" uid="uid://4s1uv5kvh52a" path="res://scenes/elements/bomb.tscn" id="8_x32fa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y6agh"]
 size = Vector2(100, 663)
@@ -23,16 +25,27 @@ position = Vector2(530, 269)
 [node name="Player" parent="." instance=ExtResource("1_l8jl6")]
 position = Vector2(580, 620)
 
-[node name="FallingSpawner" parent="." instance=ExtResource("3_g4hgf")]
+[node name="BombSpawner" parent="." instance=ExtResource("3_g4hgf")]
+position = Vector2(26, -48)
+scale = Vector2(5.5, 1)
+spawn_scene = ExtResource("8_x32fa")
+spawn_container_path = NodePath("../Bombs")
+auto_start = true
+
+[node name="Bombs" type="Node2D" parent="."]
+position = Vector2(-1.90735e-06, 0)
+
+[node name="FruitSpawner" parent="." instance=ExtResource("3_g4hgf")]
 position = Vector2(26, -47)
 scale = Vector2(5.5, 1)
-spawn_container_path = NodePath("../FallingObjects")
+objects_per_seccond = 0.5
+spawn_scene = ExtResource("3_xsaco")
+spawn_container_path = NodePath("../Fruits")
 
-[node name="Fruit" parent="FallingSpawner" instance=ExtResource("3_xsaco")]
-
-[node name="FallingObjects" type="Node2D" parent="."]
+[node name="Fruits" type="Node2D" parent="."]
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(1, 3)
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
@@ -47,9 +60,22 @@ position = Vector2(1223, 317)
 shape = SubResource("RectangleShape2D_y6agh")
 
 [node name="Ground" type="StaticBody2D" parent="."]
-position = Vector2(572, 670)
+position = Vector2(577, 685)
 scale = Vector2(15, 1)
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 shape = SubResource("RectangleShape2D_2m8ea")
+
+[node name="HUD" parent="." instance=ExtResource("7_ubsnn")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1000.0
+offset_bottom = 600.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(1.15259, 1.08118)
+
+[connection signal="fruit_catched" from="Player" to="." method="_on_player_fruit_catched"]
+[connection signal="object_spawned" from="FruitSpawner" to="." method="_on_fruit_spawner_object_spawned"]

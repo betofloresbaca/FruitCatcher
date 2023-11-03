@@ -4,6 +4,8 @@ const acceleration = 2000
 const max_speed = 450
 const drag = 2500
 
+signal fruit_catched
+
 
 func _process(delta):
 	var input_vector = get_input_vector()
@@ -25,7 +27,7 @@ func get_input_vector():
 
 
 func point_up():
-	print("UP")
+	fruit_catched.emit()
 
 
 func kill():

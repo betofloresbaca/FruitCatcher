@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://ch76vu40cu3dk"]
 
-[ext_resource type="Script" path="res://scenes/elements/random_line_spawner.gd" id="1_gl77l"]
+[ext_resource type="Script" path="res://scenes/elements/line_spawner.gd" id="1_h2vsg"]
 
-[node name="LineSpawner" type="Marker2D"]
-script = ExtResource("1_gl77l")
+[node name="RandomLineSpawner" type="Marker2D"]
+script = ExtResource("1_h2vsg")
 
 [node name="Internal" type="Node2D" parent="."]
 
